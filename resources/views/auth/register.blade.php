@@ -33,7 +33,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="othername" class="form-label">Other Name:</label>
-                                <input type="text" id="othername" name="othername" value="{{old('othername')}}" placeholder="Enter Other Name" class="form-control" required>
+                                <input type="text" id="othername" name="othername" value="{{old('othername')}}" placeholder="Enter Other Name" class="form-control">
                                 @error('othername')
                                     <small class="text-danger">{{$message}}</small>
                                 @enderror

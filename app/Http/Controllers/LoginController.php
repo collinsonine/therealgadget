@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VerificationMail;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Mail\Mailer;
 
 class LoginController extends Controller
 {
@@ -21,7 +25,6 @@ class LoginController extends Controller
         $validate = $request->validate([
             'firstname' => ['required'],
             'lastname' => ['required'],
-            'othername' => ['required'],
             'gender' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
             'dob' => ['required'],
@@ -29,7 +32,7 @@ class LoginController extends Controller
             'username' => ['required', 'unique:users,username'],
             'password' => ['required', 'min:8', 'confirmed']
         ]);
-
+        $code = Str::random(6);
         $user = new User();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
@@ -40,7 +43,13 @@ class LoginController extends Controller
         $user->phone = $request->phone;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
+        $user->verification_code = $code;
         $user->save();
+
+
+        $name = $request->firstname . " ". $request->lastname ." ". $request->middlename;
+
+        Mail::to($request->email)->send(new VerificationMail($name, $code, $request->email));
 
         return redirect()->route('login')->with('success', 'Registration Successful, Please Login To Continue');
     }

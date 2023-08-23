@@ -1,14 +1,14 @@
   <!-- Sidebar -->
-  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white text-secondary">
     <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-4">
+      <div class="list-group list-group-flush mx-3 mt-4 text-secondary">
         <a href="{{route('user.dashboard')}}" class="list-group-item list-group-item-action py-2 ripple @if (Request::is('user/dashboard')) active @endif">
           <i class="fas fa-chart-area fa-fw me-3"></i><span>Dashboard</span>
         </a>
         <a href="{{route('user.profile')}}" class="list-group-item list-group-item-action py-2 ripple  @if (Request::is('user/profile')) active @endif"
           ><i class="fas fa-lock fa-fw me-3"></i><span>Profile</span></a
         >
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple  @if (Request::is('user/chat')) active @endif"
+        <a href="{{route('user.chat')}}" class="list-group-item list-group-item-action py-2 ripple  @if (Request::is('user/chat')) active @endif"
           ><i class="fas fa-chart-line fa-fw me-3"></i><span>Chats</span></a
         >
         <a href="#" class="list-group-item list-group-item-action py-2 ripple">
